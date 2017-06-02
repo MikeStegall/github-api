@@ -1,9 +1,10 @@
 /* global $ */
 import React from 'react'
 import ReactDOM from 'react-dom'
+import _token from './_token'
 import './index.css'
 
-const GITHUBURL = `https://api.github.com/users/MikeStegall?access_token=13de576543649a783bca7cf4db97b9e5ba5ab917`
+const GITHUBURL = `https://api.github.com/users/MikeStegall` + _token
 
 let mainObj
 
@@ -63,16 +64,27 @@ function Location (props) {
     </div>
   )
 }
-function App () {
+function SearchUserName () {
   return (
-    <div>
-      {GitHubName(mainObj)}
-      {GitHubPic(mainObj)}
-      {ProfileLinks(mainObj)}
-      {Location(mainObj)}
-      {IsHireable(mainObj)}
+    <div className='search-user-name'>
+      <input type='text' name='username' placeholder='Enter GitHub Username' />
+      <button type='button'>Search User Name</button>
     </div>
   )
+}
+
+function RenderHTML (props) {
+  return (<div>
+    {GitHubName(props)}
+    {GitHubPic(props)}
+    {ProfileLinks(props)}
+    {Location(props)}
+    {IsHireable(props)}
+    {SearchUserName()}
+  </div>)
+}
+function App () {
+  return RenderHTML(mainObj)
 }
 function renderNow () {
   ReactDOM.render(App(), document.getElementById('root'))
