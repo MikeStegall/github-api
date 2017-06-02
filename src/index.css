@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+header {
+  text-align: center;
+}
+
+a {
+  padding: 30px;
+}
+img {
+  /*padding-bottom: 10px;*/
+}
+.profile-links {
+  text-align: center;
+}
+.github-picture {
+  display: block;
+  margin: auto;
+}
+
+.location {
+  text-align: center;
+}
+.hireable-status {
+  text-align: center;
+}
+.picture-bio {
+  text-align: center;
+}
+div p {
+  margin: 0
+}
