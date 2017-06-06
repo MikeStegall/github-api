@@ -31,12 +31,6 @@ function UserNotFound () {
   loadingState.isLoading = false
   loadingState.userFound = false
   loadingState.dataReceived = true
-  return (
-    <div className='avatar'>
-      <p>User Not Found</p>
-      <img src='https://avatars1.githubusercontent.com/u/583231?v=3&s=460' alt='github user' />
-    </div>
-  )
 }
 
 function FetchGitHubName (userName) {
