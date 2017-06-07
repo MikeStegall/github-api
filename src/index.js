@@ -8,13 +8,12 @@ import IsHireable from './IsHireable.js'
 import ProfileLinks from './ProfileLinks.js'
 import ProfileLocation from './ProfileLocation.js'
 import Feedback from './Feedback.js'
-
 import './index.css'
 
 const initialState = {
   isLoading: true,
   profileData: null,
-  // username: '',
+  username: '',
   userexist: false
 }
 
@@ -32,42 +31,39 @@ function fetchProfileFail () {
   window.appState.userexist = false
 }
 
-function fetchProfile (userName) {
-  const GITHUB_URL = `https://api.github.com/users/` + userName + _token
+function fetchProfile (username) {
+  const GITHUB_URL = `https://api.github.com/users/` + username + _token
+  window.appState.username = username
   $.getJSON(GITHUB_URL).done(fetchProfileSuccess)
                        .fail(fetchProfileFail)
 }
-class Search extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {value: ''}
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleChange (event) {
-    this.setState({value: event.target.value})
-  }
-
-  handleClick (event) {
-    let userName = this.state.value
-    window.appState.isLoading = true
-    fetchProfile(userName)
-  }
-
-  render () {
-    return (
-      <div className='search-user-name'>
-        <input type='text' placeholder='GitHub Username' value={this.state.value} onChange={this.handleChange} />
-        <input onClick={this.handleClick} type='submit' value='Search User' className='btn-search-name' />
-      </div>
-    )
+function onKeyPress (key) {
+  if (key.charCode === 13) {
+    clickSearchButton()
   }
 }
 
-fetchProfile('MikeStegall')
+function onChange (evt) {
+  window.appState.username = evt.target.value
+}
+function clickSearchButton () {
+  fetchProfile(window.appState.username)
+}
 
+function Search (searchTxt) {
+  return (
+    <div className='search-user-name'>
+      <input type='text'
+        placeholder='GitHub Username'
+        onChange={onChange}
+        onKeyPress={onKeyPress} />
+      <input onClick={clickSearchButton} type='submit' value='Search User' className='btn-search-name' />
+    </div>
+  )
+}
+
+fetchProfile('MikeStegall')
 function LoadingPage () {
   return <h1>Loading…</h1>
 }
@@ -80,7 +76,7 @@ function UserPage (profileData) {
       {ProfileLinks(profileData.html_url, profileData.blog)}
       {ProfileLocation(profileData.location)}
       {IsHireable(profileData.hireable)}
-      <Search />
+      {Search(profileData.username)}
     </div>
   )
 }
@@ -92,7 +88,7 @@ function App (props) {
     return (
       <div className='component'>
         {Feedback()}
-        <Search />
+        {Search(props.username)}
       </div>
     )
   } else {
