@@ -33,7 +33,6 @@ function fetchProfileFail () {
 
 function fetchProfile (username) {
   const GITHUB_URL = `https://api.github.com/users/` + username + _token
-  window.appState.username = username
   $.getJSON(GITHUB_URL).done(fetchProfileSuccess)
                        .fail(fetchProfileFail)
 }
@@ -51,7 +50,7 @@ function clickSearchButton () {
   fetchProfile(window.appState.username)
 }
 
-function Search (searchTxt) {
+function Search () {
   return (
     <div className='search-user-name'>
       <input type='text'
@@ -76,7 +75,7 @@ function UserPage (profileData) {
       {ProfileLinks(profileData.html_url, profileData.blog)}
       {ProfileLocation(profileData.location)}
       {IsHireable(profileData.hireable)}
-      {Search(profileData.username)}
+      {Search()}
     </div>
   )
 }
@@ -88,7 +87,7 @@ function App (props) {
     return (
       <div className='component'>
         {Feedback()}
-        {Search(props.username)}
+        {Search()}
       </div>
     )
   } else {
