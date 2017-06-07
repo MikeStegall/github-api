@@ -1,10 +1,10 @@
 import React from 'react'
 
-function ProfileLocation (props) {
+function ProfileLocation (location) {
   return (
     <div className='location'>
       <h3>Location</h3>
-      <p>{props.location}</p>
+      <p>{location}</p>
     </div>
   )
 }

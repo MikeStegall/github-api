@@ -14,7 +14,8 @@ a {
   padding: 30px;
 }
 img {
-  /*padding-bottom: 10px;*/
+  max-width: 190px;
+  max-height: 190px;
 }
 .profile-links {
   text-align: center;

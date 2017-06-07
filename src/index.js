@@ -11,32 +11,31 @@ import Feedback from './Feedback.js'
 
 import './index.css'
 
-let gitHubData
-
-let loadingState = {
+const initialState = {
   isLoading: true,
-  userFound: false,
-  dataReceived: false
+  profileData: null,
+  // username: '',
+  userexist: false
 }
 
-function fetchGitHubData (data) {
-  gitHubData = data
-  loadingState.isLoading = false
-  loadingState.userFound = true
-  loadingState.dataReceived = true
-  renderNow()
+window.appState = initialState
+
+function fetchProfileSuccess (data) {
+  window.appState.isLoading = false
+  window.appState.profileData = data
+  window.appState.userexist = true
 }
 
-function UserNotFound () {
-  loadingState.isLoading = false
-  loadingState.userFound = false
-  loadingState.dataReceived = true
+function fetchProfileFail () {
+  window.appState.isLoading = false
+  window.appState.profileData = ''
+  window.appState.userexist = false
 }
 
-function FetchGitHubName (userName) {
-  const GITHUBURL = `https://api.github.com/users/` + userName + _token
-  $.getJSON(GITHUBURL).done(fetchGitHubData).fail(UserNotFound)
-  renderNow()
+function fetchProfile (userName) {
+  const GITHUB_URL = `https://api.github.com/users/` + userName + _token
+  $.getJSON(GITHUB_URL).done(fetchProfileSuccess)
+                       .fail(fetchProfileFail)
 }
 class Search extends React.Component {
   constructor (props) {
@@ -53,8 +52,8 @@ class Search extends React.Component {
 
   handleClick (event) {
     let userName = this.state.value
-    loadingState.isLoading = true
-    FetchGitHubName(userName)
+    window.appState.isLoading = true
+    fetchProfile(userName)
   }
 
   render () {
@@ -67,43 +66,44 @@ class Search extends React.Component {
   }
 }
 
-FetchGitHubName('MikeStegall')
+fetchProfile('MikeStegall')
 
-function RenderHTML (props) {
-  if (loadingState.isLoading) {
-    let input = 'loading'
-    if (loadingState.userFound) {
-      input = 'User Not Found'
-      return (
-        <div className='loading'>
-          {Feedback(input)}
-          <Search />
-        </div>
-      )
-    }
+function LoadingPage () {
+  return <h1>Loading…</h1>
+}
+
+function UserPage (profileData) {
+  return (
+    <div className='component'>
+      {GitHubName(profileData.name)}
+      {GitHubPic(profileData.avatar_url, profileData.bio)}
+      {ProfileLinks(profileData.html_url, profileData.blog)}
+      {ProfileLocation(profileData.location)}
+      {IsHireable(profileData.hireable)}
+      <Search />
+    </div>
+  )
+}
+
+function App (props) {
+  if (props.isLoading) {
+    return LoadingPage()
+  } else if (!props.userexist) {
     return (
-      <div className='loading'>
-        {Feedback(input)}
+      <div className='component'>
+        {Feedback()}
         <Search />
       </div>
     )
   } else {
-    return (
-      <div className='component'>
-        {GitHubName(props)}
-        {GitHubPic(props)}
-        {ProfileLinks(props)}
-        {ProfileLocation(props)}
-        {IsHireable(props)}
-        <Search />
-      </div>
-    )
+    return UserPage(props.profileData)
   }
 }
-function App () {
-  return RenderHTML(gitHubData)
-}
+
+const rootEl = document.getElementById('root')
+
 function renderNow () {
-  ReactDOM.render(App(), document.getElementById('root'))
+  ReactDOM.render(App(window.appState), rootEl)
+  window.requestAnimationFrame(renderNow)
 }
-renderNow()
+window.requestAnimationFrame(renderNow)

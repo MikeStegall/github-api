@@ -1,8 +1,8 @@
 import React from 'react'
 
-function GitHubName (props) {
+function GitHubName (name) {
   return (
-    <header><h1>{props.name}</h1></header>
+    <header><h1>{name}</h1></header>
   )
 }
 

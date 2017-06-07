@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Feedback (input) {
+function Feedback () {
   return (
-    <div className='wrapper'>
-      <div className='avatar'>
-        <h1>{input}</h1>
+    <div className='picture-bio'>
+      <div className='github-picture'>
+        <h1>User not found</h1>
         <img src='https://avatars1.githubusercontent.com/u/583231?v=3&s=460' alt='github user' />
       </div>
     </div>
