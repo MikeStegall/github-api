@@ -4,28 +4,31 @@ body {
   font-family: sans-serif;
   background: #f5f5f5;
 }
-
-header {
-  text-align: center;
-  background: #cccccc;
+div p {
+  margin-top: 10px
 }
-
 a {
-  padding: 30px;
+  padding-right: 40px;
 }
 img {
-  max-width: 190px;
-  max-height: 190px;
+  width: 190px;
+  height: 190px;
+}
+header {
+  text-align: center;
+  background-color: #24292E;
+  color: #ffffff;
 }
 .profile-links {
   text-align: center;
 }
 .github-picture {
+  border-radius: 100px;
   display: block;
   margin: auto;
 }
-
 .location {
+  flex: 1;
   text-align: center;
 }
 .hireable-status {
@@ -34,10 +37,6 @@ img {
 .picture-bio {
   text-align: center;
 }
-div p {
-  margin: 0
-}
-
 .search-user-name {
   padding-top: 10px;
   text-align: center;
@@ -47,4 +46,16 @@ div p {
 }
 .loading {
  text-align: center;
+}
+.github-username {
+  padding: 0;
+  text-align: center;
+  background: #cccccc;
+}
+.location-hireable {
+  display: flex;
+  text-align: center;
+}
+.hireable-status {
+  flex: 1;
 }

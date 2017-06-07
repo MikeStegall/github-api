@@ -2,7 +2,7 @@ import React from 'react'
 
 function GitHubName (name) {
   return (
-    <header><h1>{name}</h1></header>
+    <div className='github-username'><h2>{name}</h2></div>
   )
 }
 

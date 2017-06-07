@@ -53,7 +53,7 @@ function clickSearchButton () {
 function Search () {
   return (
     <div className='search-user-name'>
-      <input type='text'
+      <input className='github-search-username' type='text'
         placeholder='GitHub Username'
         onChange={onChange}
         onKeyPress={onKeyPress} />
@@ -70,20 +70,23 @@ function LoadingPage () {
 function UserPage (profileData) {
   return (
     <div className='component'>
+      <header><h1>GitHub Username Search</h1></header>
       {GitHubName(profileData.name)}
       {GitHubPic(profileData.avatar_url, profileData.bio)}
       {ProfileLinks(profileData.html_url, profileData.blog)}
-      {ProfileLocation(profileData.location)}
-      {IsHireable(profileData.hireable)}
+      <div className='location-hireable'>
+        {ProfileLocation(profileData.location)}
+        {IsHireable(profileData.hireable)}
+      </div>
       {Search()}
     </div>
   )
 }
 
-function App (props) {
-  if (props.isLoading) {
+function App (appState) {
+  if (appState.isLoading) {
     return LoadingPage()
-  } else if (!props.userexist) {
+  } else if (!appState.userexist) {
     return (
       <div className='component'>
         {Feedback()}
@@ -91,7 +94,7 @@ function App (props) {
       </div>
     )
   } else {
-    return UserPage(props.profileData)
+    return UserPage(appState.profileData)
   }
 }
 
