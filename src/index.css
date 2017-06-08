@@ -54,7 +54,9 @@ header {
 }
 .location-hireable {
   display: flex;
+  margin: 0 auto;
   text-align: center;
+  width: 638px;
 }
 .hireable-status {
   flex: 1;
