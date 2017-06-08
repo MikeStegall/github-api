@@ -72,13 +72,17 @@ function UserPage (profileData) {
     <div className='component'>
       <header><h1>GitHub Username Search</h1></header>
       {GitHubName(profileData.name)}
-      {GitHubPic(profileData.avatar_url, profileData.bio)}
-      {ProfileLinks(profileData.html_url, profileData.blog)}
-      <div className='location-hireable'>
-        {ProfileLocation(profileData.location)}
-        {IsHireable(profileData.hireable)}
+      <div className='githubdata'>
+        <div className='githubpic-bio-links'>
+          {GitHubPic(profileData.avatar_url, profileData.bio)}
+          {ProfileLinks(profileData.html_url, profileData.blog)}
+        </div>
+        <div className='location-hireable'>
+          {ProfileLocation(profileData.location)}
+          {IsHireable(profileData.hireable)}
+          {Search()}
+        </div>
       </div>
-      {Search()}
     </div>
   )
 }
