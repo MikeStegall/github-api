@@ -21,5 +21,5 @@ Built this app using functions instead of classes.
 * jQuery
 * [React]
 
-[React]:(https://github.com/facebookincubator/create-react-app).
+[React]:https://github.com/facebookincubator/create-react-app
 [GitHub API Project]:http://github-api-app.surge.sh/
